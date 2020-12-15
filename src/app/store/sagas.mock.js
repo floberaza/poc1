@@ -7,7 +7,7 @@ export function* taskCreationSaga(){
         const {groupID} = yield take(mutations.REQUEST_TASK_CREATION);
         const ownerID = `U1`;
         const taskID = uuid();
-        yield put(mutations.createTask(taskID, groupID.id, ownerID));
+        yield put(mutations.createTask(taskID, groupID, ownerID));
         console.log("Got group ID", groupID);
     }
 }

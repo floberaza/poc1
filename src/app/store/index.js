@@ -13,7 +13,7 @@ export const store = createStore(
            switch(action.type) {
                case mutations.CREATE_TASK:
                     return [...tasks, {
-                        id: action.id, ///ver se para ele imprime algum ID se como
+                        id: action.taskID,
                         name:"New Task",
                         group: action.groupID,
                         owner: action.ownerID,

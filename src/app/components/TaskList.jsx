@@ -9,7 +9,7 @@ export const TaskList = ({tasks, name, id, createNewTask }) => (
             {name}
         </h3>
         <div>
-            {tasks.map(task =>(<div key={task.id}>{task.name}</div>))}
+            {tasks.map(task =>(<div key={task.id}>{task.name} (ID: {task.id})</div>))}
         </div>
         <button onClick={()=> createNewTask(id)}>Add New</button>
     </div>
@@ -24,7 +24,7 @@ const mapStateToProps = (state, ownProps) => {
     }
 };
 
-const mapDispatchToProps = (dispatch, id)=>({
+const mapDispatchToProps = (dispatch, {id})=>({
     createNewTask(){
         dispatch(requestTaskCreation(id));
     }
