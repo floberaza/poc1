@@ -4,7 +4,7 @@ import { connectDB } from './connect-db';
 
 const authenticationTokens = [];
 
-export function assemblyUserState(user) {
+export async function assemblyUserState(user) {
     let db = await connectDB();
 
     let tasks = await db.collection(`tasks`).find({owner:user.id}).toArray();
@@ -19,7 +19,7 @@ export function assemblyUserState(user) {
 
 export const authenticationRoute = app => {
     app.post('/authenticate', async (req, res) => {
-        let { username, passsword } = req.body;
+        let { username, password } = req.body;
         let db = await connectDB();
         let collection = db.collection(`users`);
 
@@ -29,10 +29,10 @@ export const authenticationRoute = app => {
             return res.status(500).send("User not found");
         }
 
-        let hash = md5(passsword);
-        let passswordCorrect = hash === user.passwordHash;
+        let hash = md5(password);
+        let passwordCorrect = hash === user.passwordHash;
 
-        if (!passswordCorrect) {
+        if (!passwordCorrect) {
             return res.status(500).send("Password incorrect");
         }
 

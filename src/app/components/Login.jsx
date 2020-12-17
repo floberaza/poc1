@@ -9,7 +9,7 @@ const LoginComponent = ({authenticateUser, authenticated})=> {
         </h2>
         <form onSubmit={authenticateUser}>
             <input type="text" placeholder="username" name="username" defaultValue="Dev"/>
-            <input type="password" placeholder="passsword" name="passsword" defaultChecked="" />
+            <input type="password" placeholder="password" name="password" defaultChecked="" />
             {authenticated === mutations.NOT_AUTHENTICATED ? 
                 <p>Login incorrect</p> : null
             }
@@ -17,18 +17,17 @@ const LoginComponent = ({authenticateUser, authenticated})=> {
         </form>
     </div>
 };
-
-const mapStateteToProps = ({session}) => ({
-    authenticated: session.authenticated
+const mapStateToProps = ({session})=>({
+    authenticated:session.authenticated
 });
 
 const mapDispatchToProps = (dispatch) => ({
     authenticateUser(e) {
         e.preventDefault();
         let username = e.target["username"].value;
-        let passsword = e.target["passsword"].value;
-        dispatch(mutations.requestAuthenticateUser(username, passsword));
+        let password = e.target["password"].value;
+        dispatch(mutations.requestAuthenticateUser(username,password));
     }
 });
 
-export const ConnectedLogin = connect(mapStateteToProps, mapDispatchToProps) (LoginComponent)
+export const ConnectedLogin = connect(mapStateToProps, mapDispatchToProps) (LoginComponent)
