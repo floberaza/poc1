@@ -42,3 +42,18 @@ export function* taskModificationSaga() {
         })
     }
 }
+
+export function* userAuthenticationSaga(){
+    while (true) {
+        const { username, passsword } = yield take(mutations.REQUEST_AUTHENTICATE_USER);
+        try {
+            const { data } = axios.post(url + `/authenticate`, {username, passsword});
+            if (!data) {
+                throw new Error();
+            }
+        } catch (e) {
+            console.log("can't authenticate");
+            yield put(mutations.processAuthenticatedUser(mutations.NOT_AUTHENTICATED));
+        }
+    }
+}
