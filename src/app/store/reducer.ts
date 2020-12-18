@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import * as mutations from './mutations'
 
-let defaultState = {
+let defaultState: Models.StateTO = {
     session:{},
     comments:[],
     users:[],
@@ -10,7 +10,7 @@ let defaultState = {
 };
 
 export const reducer = combineReducers({
-    session(userSession = defaultState.session,action){
+    session(userSession: Models.SessionTO = defaultState.session,action){
         let {type,authenticated, session} = action;
         switch(type){
             case mutations.SET_STATE:
@@ -23,13 +23,13 @@ export const reducer = combineReducers({
                 return userSession;
         }
     },
-    comments:(comments = defaultState.comments,action)=>{
+    comments:(comments: Models.CommentTO[] = defaultState.comments,action)=>{
         switch (action.type) {
             case mutations.ADD_TASK_COMMENT:
                 let {type,owner,task,content,id} = action;
                 return [...comments,{owner,task,content,id}];
             case mutations.SET_STATE:
-                return action.state.comments || defaultStatus.comments;
+                return action.state.comments || defaultState.comments;
         }
         return comments;
     },
@@ -47,7 +47,7 @@ export const reducer = combineReducers({
         }
         return groups;
     },
-    tasks(tasks = defaultState.tasks,action){
+    tasks(tasks: Models.TaskTO[] = defaultState.tasks,action){
         switch(action.type) {
             case mutations.SET_STATE:
                 return action.state.tasks;

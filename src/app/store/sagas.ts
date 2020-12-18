@@ -9,7 +9,7 @@ const url = process.env.NODE_ENV === 'production' ? `` : `http://localhost:7777`
 export function* taskCreationSaga(){
     while (true){
         const {groupID} = yield take(mutations.REQUEST_TASK_CREATION);
-        const ownerID = yield select(state=>state.session.id);
+        const ownerID = yield select<Models.StateTO>(state=>state.session.id);
         const taskID = uuid();
         let mutation = mutations.createTask(taskID, groupID, ownerID);
         const { res } = yield axios.post(url + `/task/new`,{task:{
