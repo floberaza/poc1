@@ -1,19 +1,20 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { ConnectedTaskList } from './TaskList'
+/**
+ * The dashboard is a simple React component that contains several lists of tasks,
+ * one for each group that belongs to the user.
+ */
 
-export const Dashboard =({groups}) => (
+import { connect } from 'react-redux';
+import React from 'react';
+import { ConnectedTaskList } from './TaskList';
+
+const Dashboard = ({groups})=>(
     <div className="row">
-        {groups.map(group =>(
-            <ConnectedTaskList key={group.id} id={group.id} name={group.name} className="col" />
+        {groups.map(group=>(
+            <ConnectedTaskList key={group.id} {...group} className="col"/>
         ))}
     </div>
-)
+);
 
-function mapStateToProps(state){
-    return {
-        groups: state.groups
-    }
-}
+const mapStateToProps = ({groups})=>({groups});
 
-export const ConnectedDashboard = connect(mapStateToProps) (Dashboard);
+export const ConnectedDashboard = connect(mapStateToProps)(Dashboard);
